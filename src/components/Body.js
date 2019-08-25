@@ -1,13 +1,39 @@
 import React, { Component } from "react";
 
+import TodoForm from "./TodoForm";
+import getTodos from "../Data";
+
+const uuidv1 = require("uuid/v1");
+
 export default class Body extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      todos: [{}, {}]
+      todos: getTodos()
     };
   }
+
+  // Add new Todo
+  handleAddTodo = todo => {
+    const { todos } = this.state;
+    const newTodo = Object.assign(
+      {},
+      {
+        id: uuidv1(),
+        isDone: false
+      },
+      todo
+    );
+    todos.push(newTodo);
+
+    this.setState(
+      {
+        todos
+      },
+      () => this.addToLocalStorage(todos)
+    );
+  };
 
   render() {
     return (
@@ -20,7 +46,7 @@ export default class Body extends Component {
                   <div className="card ">
                     <div className="card-header">Today Tasks</div>
                     <div className="card-body">
-                      <p>TODO form</p>
+                      <TodoForm onAdd={this.handleAddTodo} />
                     </div>
                   </div>
                   <div className="pt-3">
