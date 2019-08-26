@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
 import TodoForm from "./TodoForm";
+import TaskList from "./TaskList";
 import getTodos from "../Data";
+import getQuotes from "../FakeQuotes";
+import Quotes from "./Quotes";
 
 const uuidv1 = require("uuid/v1");
 
@@ -14,6 +17,14 @@ export default class Body extends Component {
     };
   }
 
+  // Add To LocalStorage
+  addToLocalStorage = todos => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
+  GetFromLocalStorage = () => {
+    return JSON.parse(localStorage.getItem("todos"));
+  };
   // Add new Todo
   handleAddTodo = todo => {
     const { todos } = this.state;
@@ -34,6 +45,38 @@ export default class Body extends Component {
       () => this.addToLocalStorage(todos)
     );
   };
+  // Update Todo List
+  handleTodoCheck = todoChecked => {
+    const todos = this.state.todos;
+    const updatedTodos = todos.map(todo => {
+      if (todo.id === todoChecked.id) {
+        todo.isDone = !todo.isDone;
+      }
+      return todo;
+    });
+
+    this.setState(
+      {
+        todos: updatedTodos
+      },
+      () => {
+        this.addToLocalStorage(updatedTodos);
+      }
+    );
+  };
+
+  // Delete Todo List
+  handleDelete = todoClicked => {
+    const todos = this.state.todos;
+    const newTodos = todos.filter(todo => todo.id !== todoClicked.id);
+
+    this.setState(
+      {
+        todos: newTodos
+      },
+      () => this.addToLocalStorage(newTodos)
+    );
+  };
 
   render() {
     return (
@@ -44,19 +87,31 @@ export default class Body extends Component {
               <div className="row">
                 <div className="col-md-10">
                   <div className="card ">
-                    <div className="card-header">Today Tasks</div>
+                    <div className="card-header">Today Goals</div>
                     <div className="card-body">
                       <TodoForm onAdd={this.handleAddTodo} />
                     </div>
                   </div>
                   <div className="pt-3">
-                    <p>Quotes</p>
+                    <Quotes getQuotes={getQuotes} />
                   </div>
                 </div>
               </div>
             </div>
             <div className="col-sm-6">
-              <p>List tasks</p>
+              {!this.state.todos.length && (
+                <div className="alert alert-success">
+                  <h4>No Goals For Today!</h4>
+                  <p>Go Ahead, Add Your Today's Goal</p>
+                </div>
+              )}
+              {this.state.todos.length > 0 && (
+                <TaskList
+                  todos={this.state.todos}
+                  onDone={this.handleTodoCheck}
+                  handleDelete={this.handleDelete}
+                />
+              )}
             </div>
           </div>
         </div>

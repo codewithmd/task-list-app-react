@@ -17,7 +17,7 @@ export default class App extends Component {
         <div className="container">
           <Body />
         </div>
-        <footer className="footer py-3 fixed-bottom">
+        <footer className="footer py-3 fixed-md-bottom">
           <div className="container-fluid">
             <span className="text-muted">
               {" "}

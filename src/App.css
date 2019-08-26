@@ -6,3 +6,6 @@ body {
   line-height: 150%;
   text-rendering: optimizeLegibility;
 }
+nav h2 {
+  font-size: 2rem;
+}
