@@ -1,4 +1,18 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap");
+.progress .progress-bar {
+  -webkit-transition: width 0.6s ease;
+  transition: width 0.6s ease;
+}
+.custom-control-label:before {
+  /* background-color: #28a745; */
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #28a745;
+}
+
+.custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
 
 body {
   font-family: "Source Sans Pro", sans-serif;
@@ -6,6 +20,27 @@ body {
   line-height: 150%;
   text-rendering: optimizeLegibility;
 }
-nav h2 {
-  font-size: 2rem;
+
+.card-header {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0px 0px 8px rgba(114, 236, 155, 0.5);
+}
+
+.tasklist-card {
+  border-color: #28a745;
+
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0px 0px 8px rgba(114, 236, 155, 0.5);
+}
+.quote p {
+  color: #333;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1.2rem;
 }

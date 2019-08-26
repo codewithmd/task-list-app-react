@@ -83,7 +83,7 @@ export default class Body extends Component {
       <div>
         <div className="container mt-5">
           <div className="row">
-            <div className="col-sm-6 text-center ">
+            <div className="col-md-6 text-center ">
               <div className="row">
                 <div className="col-md-10">
                   <div className="card ">
@@ -98,7 +98,7 @@ export default class Body extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-sm-6">
+            <div className="col-md-6">
               {!this.state.todos.length && (
                 <div className="alert alert-success">
                   <h4>No Goals For Today!</h4>
