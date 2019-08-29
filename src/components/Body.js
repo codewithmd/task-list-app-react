@@ -34,7 +34,9 @@ export default class Body extends Component {
         id: uuidv1(),
         isDone: false
       },
-      todo
+      {
+        title: todo
+      }
     );
     todos.push(newTodo);
 

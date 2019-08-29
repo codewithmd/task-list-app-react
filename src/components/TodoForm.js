@@ -19,23 +19,27 @@ export default class TodoForm extends Component {
   };
 
   handleSubmit = e => {
-    if (
-      this.state.todo.title === "" ||
-      this.state.todo.title === " " ||
-      this.state.todo.title === "  "
-    ) {
+  	e.preventDefault();
+  	
+  	const todoText = !this.state.todo.title ? "" : this.state.todo.title.trim();
+  	console.log(todoText);
+    if (todoText.length === 0) {
       e.preventDefault();
+      
       alert("Give A Valid Name");
       e.target.title.focus();
       return false;
+    }else {
+    	this.props.onAdd(todoText);
+    	
+	    this.setState({
+	      todo: {
+	        title: ""
+	      }
+	    });
     }
-    this.props.onAdd(this.state.todo);
-    this.setState({
-      todo: {
-        title: ""
-      }
-    });
-    e.preventDefault();
+   
+    
   };
   render() {
     return (
@@ -45,7 +49,6 @@ export default class TodoForm extends Component {
             className="form-control"
             type="text"
             name="title"
-            required
             placeholder="I Want to.."
             autoFocus
             onChange={this.handleUpdate}
